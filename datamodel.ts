@@ -42,13 +42,14 @@ type Offer = {
     name: string;
     image_url?: string;
     description: string;
-    location: ("bei_euch" | "bei_uns" | "dritter_ort" | "online")[];
+    location: ("bei_ech" | "bei_uns" | "dritter_ort" | "online")[];
     location_address?: Address;
     timeframe: Timeframe;
     cost: Cost;
     agents: Agent[];
     links?: Link[];
     topics: string[];
+    interdisciplinary_topics: string[];
     target_groups: ("vorschulkinder" | "grundschulkinder" | "unterstufe" | "oberstufe" | "studierende" | "lehrkräfte" | "auszubildende" | "fachkräfte" | "familien" | "ehrenamtliche" | "senioren" | "pädagogen" | "hausmeister" | "schulleitung" | "für_alle")[];
     min_participants: number;
     max_participants: number;
