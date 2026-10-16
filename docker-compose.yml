@@ -2,7 +2,7 @@ version: "3.8"
 services:
   db:
     image: mariadb:latest
-    container_name: mariadb
+    container_name: bne_db
     restart: unless-stopped
     environment:
       MARIADB_ROOT_PASSWORD: example_root_password
@@ -16,10 +16,10 @@ services:
       - ./database:/docker-entrypoint-initdb.d
 
   backend:
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: fastapi_backend
+    container_name: bne_backend
     restart: unless-stopped
     ports:
       - "8000:8000"
