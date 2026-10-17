@@ -39,12 +39,18 @@ Dieses Projekt bietet eine interaktive Webanwendung für den Angebotskatalog 'Bi
    cd bne_angebotskatalog_magdeburg
    ```
 
-2. Umgebung mit Docker Compose starten:
+2. Erstelle eine `.env` Datei basierend auf `.example.env` und passe die Werte an:
+   ```bash
+   cp .example.env .env
+   # Bearbeite .env mit deinen gewünschten Werten
+   ```
+
+3. Umgebung mit Docker Compose starten:
    ```bash
    docker-compose up -d
    ```
 
-3. Auf die Anwendung zugreifen:
+4. Auf die Anwendung zugreifen:
    - API: http://localhost:8000
    - Frontend: http://localhost:8000/public
 
@@ -60,11 +66,13 @@ API Dokumentation:
 
 ### Datenbank
 
-Die MariaDB-Datenbank ist auf Port 3306 verfügbar mit den folgenden Zugangsdaten:
-- Host: localhost:3306
+Die MariaDB-Datenbank ist nur vom Backend-Container aus erreichbar. Externer Zugriff ist deaktiviert für Sicherheitszwecke.
+
+Zugangsdaten werden über Umgebungsvariablen konfiguriert. Standardwerte:
+- Host: db (Docker Service Name)
 - Datenbank: app_db
 - Benutzer: app_user
-- Passwort: example_user_password
+- Passwort: (definiert in .env Datei)
 
 ## Nützliche Endpunkte
 
