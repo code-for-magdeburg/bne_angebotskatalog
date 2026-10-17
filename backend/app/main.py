@@ -24,4 +24,4 @@ async def health_check():
     return {"status": "ok"}
 
 # Serve static files from public directory
-app.mount("/public", StaticFiles(directory="public"), name="public")
+app.mount("/", StaticFiles(directory="public"), name="public")
