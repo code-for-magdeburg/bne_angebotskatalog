@@ -12,7 +12,8 @@ app = FastAPI(title="Institution API")
 ONLY_GET_REQUESTS = os.getenv("ONLY_GET_REQUESTS", "false").lower() == "true"
 
 # Add middleware to enforce GET-only requests when enabled
-app.add_middleware(GetOnlyMiddleware)
+if ONLY_GET_REQUESTS:
+    app.add_middleware(GetOnlyMiddleware)
 
 
 app.include_router(institution_router, prefix="/api")
