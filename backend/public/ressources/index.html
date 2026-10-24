@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ressourcen - Hackathon Timetable</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.49.0/dist/tabler-icons.min.css" />
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-sky-50 text-slate-800">
+  <header class="px-6 pt-12 pb-8">
+    <div class="mx-auto max-w-4xl">
+      <a href="../"
+        class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-700 transition hover:text-emerald-900">
+        <span aria-hidden="true">&larr;</span>
+        Zurück zum Timetable
+      </a>
+      <div class="mt-8 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <p class="text-sm font-semibold uppercase tracking-widest text-emerald-600">Hackathon Angebotskatalog</p>
+          <h1 class="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">Ressourcen</h1>
+          <p class="mt-3 max-w-2xl text-slate-500">
+            Nützliche Links für den Hackathon
+          </p>
+        </div>
+        <div class="relative shrink-0 self-start">
+          <button id="menu-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menu"
+            class="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-slate-200 transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2">
+            <i class="ti ti-dots-vertical text-lg" aria-hidden="true"></i>
+          </button>
+          <div id="menu" role="menu" aria-labelledby="menu-button"
+            class="absolute right-0 z-20 mt-2 hidden w-48 overflow-hidden rounded-lg bg-white py-1 shadow-lg ring-1 ring-slate-200">
+            <button id="import-button" type="button" role="menuitem"
+              class="flex w-full items-center gap-3 px-4 py-2 text-left text-sm font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700 focus:bg-emerald-50 focus:text-emerald-700 focus:outline-none">
+              <i class="ti ti-upload text-lg" aria-hidden="true"></i>
+              Import
+            </button>
+            <button id="export-button" type="button" role="menuitem"
+              class="flex w-full items-center gap-3 px-4 py-2 text-left text-sm font-medium text-slate-700 transition hover:bg-emerald-50 hover:text-emerald-700 focus:bg-emerald-50 focus:text-emerald-700 focus:outline-none">
+              <i class="ti ti-download text-lg" aria-hidden="true"></i>
+              Export
+            </button>
+          </div>
+          <input id="import-input" type="file" accept="application/json,.json" class="sr-only" />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-4xl px-6 pb-16">
+    <section class="mt-8" aria-labelledby="resources-heading">
+      <h2 id="resources-heading" class="sr-only">Alle Ressourcen</h2>
+      <div id="resource-list" class="grid gap-5 sm:grid-cols-1">
+        <p class="text-slate-500">Ressourcen werden geladen …</p>
+      </div>
+      <p id="status" role="status" class="mt-4 hidden rounded-lg px-4 py-3 text-sm"></p>
+    </section>
+  </main>
+
+  <template id="resource-card-template">
+    <a target="_blank" rel="noopener noreferrer"
+      class="group flex h-full flex-col rounded-2xl bg-white p-6 shadow-lg ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-xl hover:ring-emerald-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+      <h3 data-title class="text-lg font-semibold text-slate-900 group-hover:text-emerald-700"></h3>
+      <p data-description class="mt-2 flex-1 text-sm text-slate-500"></p>
+    </a>
+  </template>
+
+  <template id="resource-form-template">
+    <form class="flex h-full flex-col rounded-2xl bg-white p-6 shadow-lg ring-1 ring-slate-100">
+      <h3 class="text-lg font-semibold text-slate-900">Neue Ressource</h3>
+      <div class="mt-4 flex flex-1 flex-col gap-3">
+        <label class="block">
+          <span class="mb-1 block text-sm font-medium text-slate-700">Titel</span>
+          <input name="title" type="text" required
+            class="w-full rounded-lg border-0 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm ring-1 ring-slate-200 transition placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500" />
+        </label>
+        <label class="block">
+          <span class="mb-1 block text-sm font-medium text-slate-700">URL</span>
+          <input name="url" type="url" required placeholder="https://…"
+            class="w-full rounded-lg border-0 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm ring-1 ring-slate-200 transition placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500" />
+        </label>
+        <label class="block">
+          <span class="mb-1 block text-sm font-medium text-slate-700">Beschreibung</span>
+          <textarea name="description" rows="2"
+            class="w-full rounded-lg border-0 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm ring-1 ring-slate-200 transition placeholder:text-slate-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"></textarea>
+        </label>
+        <button type="submit"
+          class="mt-2 inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2">
+          <i class="ti ti-plus text-lg" aria-hidden="true"></i>
+          Hinzufügen
+        </button>
+      </div>
+    </form>
+  </template>
+
+  <script src="resources.js"></script>
+</body>
+
+</html>

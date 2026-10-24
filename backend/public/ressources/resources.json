@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Angebotskatalog Bildung für nachhaltige Entwicklung",
+    "url": "/ressources/BNE_Angebotskatalog_Dezember_2025.PDF",
+    "description": "Der vollständige Angebotskatalog der Stadt Magdeburg als PDF."
+  },
+  {
+    "title": "HTML Tutorial",
+    "url": "https://www.w3schools.com/html/default.asp",
+    "description": "Schritt-für-Schritt-Einstieg in HTML mit dem W3Schools-Tutorial."
+  },
+  {
+    "title": "HTML Tags",
+    "url": "https://www.w3schools.com/tags/default.asp",
+    "description": "Nachschlagewerk für alle HTML-Tags und ihre Verwendung."
+  },
+  {
+    "title": "CSS Tutorial",
+    "url": "https://www.w3schools.com/css/",
+    "description": "Stylesheets von den Grundlagen bis zu fortgeschrittenen Techniken."
+  }
+]
