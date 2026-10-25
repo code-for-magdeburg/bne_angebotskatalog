@@ -46,6 +46,14 @@ class InstitutionBase(BaseModel):
 class InstitutionCreate(InstitutionBase):
     pass
 
+class InstitutionUpdate(InstitutionBase):
+    institution_type: Optional[str] = None
+    name: Optional[str] = None
+    description: Optional[str] = None
+    address_id: Optional[int] = None
+    logo_url: Optional[str] = None
+    link_id: Optional[int] = None
+
 class InstitutionOut(InstitutionBase):
     id: int
 

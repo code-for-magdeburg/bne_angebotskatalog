@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import exc
 
-from ..models import InstitutionCreate, InstitutionOut
+from ..models import InstitutionCreate, InstitutionOut, InstitutionUpdate
 from ..database import get_async_session
 from ..orm import Institution
 
@@ -79,6 +79,50 @@ async def get_institutions(
         institutions = result.scalars().all()
         return institutions
     except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Internal server error: {str(e)}"
+        )
+
+
+@router.put("/{institution_id}", response_model=InstitutionOut)
+async def update_institution(
+    institution_id: int,
+    institution_update: InstitutionUpdate,
+    db: AsyncSession = Depends(get_async_session),
+):
+    try:
+        # Fetch the existing institution
+        result = await db.execute(select(Institution).where(Institution.id == institution_id))
+        db_institution = result.scalar_one_or_none()
+        
+        if db_institution is None:
+            raise HTTPException(
+                status_code=404,
+                detail="Institution not found"
+            )
+        
+        # Update the institution fields if provided
+        if institution_update.institution_type is not None:
+            db_institution.institution_type = institution_update.institution_type
+        if institution_update.name is not None:
+            db_institution.name = institution_update.name
+        if institution_update.description is not None:
+            db_institution.description = institution_update.description
+        if institution_update.address_id is not None:
+            db_institution.address_id = institution_update.address_id
+        if institution_update.logo_url is not None:
+            db_institution.logo_url = institution_update.logo_url
+        if institution_update.link_id is not None:
+            db_institution.link_id = institution_update.link_id
+            
+        await db.commit()
+        await db.refresh(db_institution)
+        return db_institution
+    except HTTPException:
+        raise
+    except Exception as e:
+        await db.rollback()
         raise HTTPException(
             status_code=500,
             detail=f"Internal server error: {str(e)}"
